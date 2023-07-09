@@ -4,6 +4,8 @@
 
 Final project dari mata kuliah PPDM pada semester Genap 2022/2023 adalah membangun sebuah aplikasi Identifikasi Sentimen atau Emosi dari dataset bertipe teks dengan menerapkan konsep preprocessing dan representasi data multimedia dan juga aplikasi machine learning menggunakan tool bahasa pemrograman Python. Fitur utama aplikasi ini adalah melakukan pengecekan terhadap sebuah data atau beberapa data yang bertipe teks.
 
+Untuk Menjalankan Profram Jalankan Fungsi Main.py
+
 Anggota Kelompok:
 1. M. Faisal Afandi, 2108561024
 2. Dimas Firmansyah, 2108561035
