@@ -79,9 +79,9 @@ def use_train(X, y, C_in=10, gamma_in=0.1, kernel_in='rbf'):
     # svm = svm.SVC()
     # param = {
     #     'C': (0.1, 1, 10, 100),
-    #     'kernel': ('linear', 'rbf', 'sigmoid', 'poly'),
-    #     'gamma': (0.0001, 0.001, 0.1, 1, 'scale', 'auto'),
-    #     'degree': (2, 3, 4)
+    #     'kernel': ('rbf', 'poly'),
+    #     'gamma': (0.0001, 0.001, 0.1),
+    #     'degree': (2)
     #     }
     # grid = GridSearchCV(svm, param)
     # grid.fit(X,y)
@@ -127,13 +127,26 @@ def __MAIN__():
     
     @app.route('/cek', methods=("POST", "GET"))
     def cek():
-        if (request.method == "POST") and (request.form["in_kal"] != ""):
+        if 'in_kal' in request.form and (request.method == "POST") and (request.form["in_kal"] != ""):
             # Membuat array numpy dengan input pengguna
             kalimat = np.array([request.form["in_kal"]], dtype=object)
             
             pred = Prediksi.sentiment(kalimat, cv, selector, tfidfconverter, classifierSVM)
 
-            return render_template('cek.html', kal=request.form['in_kal'], result=pred)
+            return render_template('cek.html', kal=request.form['in_kal'], result=pred, results={})
+        elif 'in_file' in request.files:
+            file = request.files['in_file'];
+            if file.filename != "":
+                df = pd.read_excel(file)
+                kalimats = df['Reviews'].to_numpy();
+                preds = {}
+                for kalimat in kalimats:
+                    kalimat_lower = kalimat.lower()  # Mengubah teks menjadi huruf kecil
+                    pred = Prediksi.sentiment(np.array([kalimat_lower]), cv, selector, tfidfconverter, classifierSVM)
+                    preds[kalimat] = pred
+
+                return render_template('cek.html', kal="", results=preds)
+            return 'gagal'
         else:
             return render_template('cek.html')
     
@@ -164,6 +177,20 @@ def __MAIN__():
                                class_report8=pd.DataFrame(classification_report(y_test8, y_pred_SVM8, output_dict=True)).transpose().to_html(classes='table table-hover')
                                )
     # class_report=pd.DataFrame(classification_report(y_test, y_pred_SVM, output_dict=True)).transpose().to_html()
+
+    @app.route('/cekhype', methods=("POST", "GET"))
+    def cekhype():
+        if (request.method == "POST") and ('in_c' in request.form and (request.form["in_c"] != "")) and ('in_g' in request.form and (request.form["in_g"] != "")) and ('in_ker' in request.form and (request.form["in_ker"] != "")):
+            classifierSVM1, y_pred_SVM1, y_test1 = use_train(X, y, float(request.form["in_c"]), float(request.form["in_g"]), request.form["in_ker"])
+        
+            return render_template('cek_hyper.html', 
+                                   in_c=request.form['in_c'],
+                                   in_g=request.form['in_g'],
+                                   in_ker=request.form['in_ker'],
+                                   class_report=pd.DataFrame(classification_report(y_test1, y_pred_SVM1, output_dict=True)).transpose().to_html(classes='table table-hover')
+                                )
+        else:
+            return render_template('cek_hyper.html')
     
     @app.route('/pre')
     def pre():

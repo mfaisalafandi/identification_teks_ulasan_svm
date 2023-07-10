@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 <!-- site metas -->
-<title>Kelompok 5</title>
+<title>Search</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">	
@@ -43,45 +43,68 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/">HOME</a>
-       </li>
-       <li class="nav-item">
-          <a class="nav-link" href="/#fitur">FITUR</a>
-       </li>
-       <li class="nav-item">
-         <a class="nav-link" href="/pre">PREPROCESSING</a>
-       </li>
-       <li class="nav-item">
-          <a class="nav-link" href="/cek">ANALISA</a>
-       </li>
-       <li class="nav-item">
-         <a class="nav-link" href="/hype">HYPERPARAMETER</a>
+           <a class="nav-link" href="/">HOME</a>
         </li>
         <li class="nav-item">
-         <a class="nav-link" href="/cekhype">CEKPARAMETER</a>
+           <a class="nav-link" href="/#fitur">FITUR</a>
         </li>
-       <li class="nav-item">
-          <a class="nav-link" href="/team">TEAM</a>
-       </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pre">PREPROCESSING</a>
+        </li>
+        <li class="nav-item">
+           <a class="nav-link" href="/cek">ANALISA</a>
+        </li>
+				<li class="nav-item">
+					<a class="nav-link" href="/hype">HYPERPARAMETER</a>
+				 </li>
+         <li class="nav-item">
+					<a class="nav-link" href="/cekhype">CEKPARAMETER</a>
+				 </li>
+        <li class="nav-item">
+           <a class="nav-link" href="/team">TEAM</a>
+        </li>
     </ul>
     </div>
 </nav>
 	<!-- header section start-->
   
-  <div class="footer_section layout_padding" style="margin-top: 1% !important;">
+  <!-- Recurments  section start-->
+  <div class="services_section">
     <div class="container">
-      <h1 class="subscribr_text">Teks Preprocessing</h1>
-      <p class="lorem_text">Normalization, Cleansing, Tokenize, Normalization, Stemming, Stopword</p>
+        <h1 class="services_text">Eksperimen</h1>
     </div>
-  </div>
+</div>
 
+<div class="Recurments_section_2">
   <div class="container">
-    <div class="row py-5">
-      <div class="table-responsive">
-        {{ table|safe }}
+    <div class="product_section">
+      <div class="row padding_top_0">
+        <div class="col-sm-4">
+          <!-- <h3 class="software_text" style="font-size: 26px;">C = {{ in_c }}, <br/>Gamma = {{ in_g }}, <br/>Kernel = '{{ in_ker }}'</h3> -->
+          <form action="/cekhype" method="post">
+            <h3 class="software_text" style="font-size: 26px;">
+              C = <input type="text" name="in_c" id="in_c" class="form-control" value="{{ in_c }}">
+              <br/>Gamma = <input type="text" name="in_g" id="in_g" class="form-control" value="{{ in_g }}">
+              <br/>Kernel = <br/>
+                <select name="in_ker" id="in_ker" class="form-control">
+                  {% if in_ker == 'rbf' %}
+                  <option value="rbf" selected>rbf</option>
+                  <option value="poly">polynomial | degree = 2</option>
+                  {% else %}
+                  <option value="rbf">rbf</option>
+                  <option value="poly" selected>polynomial | degree = 2</option>
+                  {% endif %}
+                </select><br/><br/>
+                <input type="submit" name="submit" class="btn btn-success" value="Cek Akurasi Parameter">
+            </h3>
+          </form>
+        </div>
+        <div class="col-sm-8">
+          {{ class_report|safe }}
+        </div>
       </div>
-    </div>
   </div>
+</div>
   
   <!-- copyright section start-->
 	<div class="copyright_section">

@@ -43,20 +43,26 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-           <a class="nav-link" href="/">HOME</a>
+          <a class="nav-link" href="/">HOME</a>
+       </li>
+       <li class="nav-item">
+          <a class="nav-link" href="/#fitur">FITUR</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/pre">PREPROCESSING</a>
+       </li>
+       <li class="nav-item">
+          <a class="nav-link" href="/cek">ANALISA</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/hype">HYPERPARAMETER</a>
         </li>
         <li class="nav-item">
-           <a class="nav-link" href="/#fitur">FITUR</a>
+         <a class="nav-link" href="/cekhype">CEKPARAMETER</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/pre">PREPROCESSING</a>
-        </li>
-        <li class="nav-item">
-           <a class="nav-link" href="/cek">CEK ULASAN</a>
-        </li>
-        <li class="nav-item">
-           <a class="nav-link" href="/team">TEAM</a>
-        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="/team">TEAM</a>
+       </li>
     </ul>
     </div>
 </nav>
@@ -85,6 +91,40 @@
         <div class="alert alert-danger w-100" role="alert">
           <p class="pop-danger">Kalimat Termasuk dalam kelas negatif!</p>
         </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="footer_section layout_padding" style="margin-top: 1% !important;">
+    <div class="container">
+      <h1 class="subscribr_text">Prediksi Multiple Ulasan</h1>
+      <p class="lorem_text">Jika Anda Memiliki Banyak Ulasan, silahkan simpan dengan format excel. Dan berikan header 'Reviews'</p>
+      <form action="/cek" name="searchFile" method="POST" enctype="multipart/form-data">
+        <div class="box_main_2">
+          <input type="hidden" name="in_ka'" value="">
+          <input class="form-control" type="file" id="formFile" name="in_file">
+        </div>
+        <br/><br/><br/>
+        <input type="submit" class="mt-2 subscribe_bt_2 w-100" name="btn-submit" value="Cek Sekarang!">
+			</form>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row p-5">
+      {% if results %}
+        {% for kalimat, pred in results.items() %}
+          {% if pred == 1 %}
+          <!-- <li>{{ loop.index }}. {{ kalimat }} => {{ pred }}</li> -->
+            <div class="alert alert-success w-100" role="alert">
+              <p class="pop-success">POSITIF <br/>{{ loop.index }}. {{ kalimat }}</p>
+            </div>
+          {% elif pred == 0 %}
+            <div class="alert alert-danger w-100" role="alert">
+              <p class="pop-danger">NEGATIF <br/>{{ loop.index }}. {{ kalimat }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
       {% endif %}
     </div>
   </div>
