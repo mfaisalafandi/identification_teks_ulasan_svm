@@ -140,8 +140,6 @@ def stemming(tokens):
 
 def filtering(tokens):
     listStopWords =  set(stopwords.words('indonesian'))
-    # menambah kata kata yang ingin dihilangkan
-    listStopWords.update({'nya', 'sih', 'ueueueuue', 'euueueueue', 'hsbdjdkwjehdbejwwjbdbqjajhdhdjsjwjjwjwjbd', 'huhu'})
     removed = []
     for line_token in tokens:
         tmp_remove = []

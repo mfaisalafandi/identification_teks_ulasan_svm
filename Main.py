@@ -145,7 +145,7 @@ def __MAIN__():
                     pred = Prediksi.sentiment(np.array([kalimat_lower]), cv, selector, tfidfconverter, classifierSVM)
                     preds[kalimat] = pred
 
-                return render_template('cek.html', kal="", results=preds)
+                return render_template('cek.html', kal="", result="", results=preds)
             return 'gagal'
         else:
             return render_template('cek.html')
